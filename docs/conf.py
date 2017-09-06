@@ -30,6 +30,7 @@ project_root = os.path.dirname(cwd)
 # This lets us ensure that the source package is imported, and that its
 # version is used.
 sys.path.insert(0, project_root)
+sys.path.insert(0, os.path.abspath('tyluigiutil'))
 
 import tyluigiutils
 import tyluigiutils.venv_job
@@ -59,7 +60,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'TrustYou Luigi Utilities'
-copyright = u"2017, Miguel Cabrera"
+copyright = u"2017, TrustYou GmbH"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -103,7 +104,6 @@ exclude_patterns = ['_build']
 pygments_style = 'sphinx'
 
 # A list of ignored prefixes for module index sorting.
-#modindex_common_prefix = []
 
 # If true, keep warnings as "system message" paragraphs in the built
 # documents.
@@ -244,7 +244,7 @@ latex_documents = [
 man_pages = [
     ('index', 'tyluigiutils',
      u'TrustYou Luigi Utilities Documentation',
-     [u'Miguel Cabrera'], 1)
+     [u'TrustYou GmbH'], 1)
 ]
 
 # If true, show URL addresses after external links.
