@@ -32,6 +32,9 @@ project_root = os.path.dirname(cwd)
 sys.path.insert(0, project_root)
 
 import tyluigiutils
+import tyluigiutils.venv_job
+import tyluigiutils.json_job_task
+import tyluigiutils.external
 
 # -- General configuration ---------------------------------------------
 
