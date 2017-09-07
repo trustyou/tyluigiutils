@@ -20,6 +20,14 @@ tyluigiutils\.hadoop module
     :undoc-members:
     :show-inheritance:
 
+tyluigiutils\.spark module
+--------------------------
+
+.. automodule:: tyluigiutils.spark
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
