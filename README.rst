@@ -20,7 +20,7 @@ TrustYou Luigi Utilities
 .. image:: https://img.shields.io/pypi/l/tyluigiutils.svg?style=flat
    :target: https://pypi.python.org/pypi/tyluigiutils
 
-Misc Luigi related code used internally by  TrustYou that allow you to:
+Misc Luigi related code used internally by TrustYou that allow you to:
 
 - Run Python Hadoop Streaming from a Python virtual environment.
 - Run Luigi Task to automatically read, validate and generate json.
@@ -28,6 +28,7 @@ Misc Luigi related code used internally by  TrustYou that allow you to:
 
 Getting Started
 ----------------
+
 * TODO
 
 
