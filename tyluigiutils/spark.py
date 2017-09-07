@@ -30,6 +30,11 @@ def write_decorator(write_function):
     """
     Decorator for Spark output writer.
 
+    This decorator writes first to a temporary files. if the writing is successful
+    then it moves the temporary file to the final name. This is necessary as Spark
+    might fail at the saveAs* stage however the final file would be created preventing Luigi
+    to scheduling the task again after a failur.
+
     :param write_function: A writer function that saves the output.
     :return: The wrapper function.
 
