@@ -18,7 +18,10 @@ TrustYou Luigi Utilities
      :alt: Updates
 
 
-Misc Luigi related code used by TrustYou 
+Misc Luigi related code used b internally by  TrustYou that allow you to:
+
+- Run Python Hadoop Streaming from a Python virtual environment.
+- Run Luigi Task to automatically read, validate and generate json.
 
 
 * Free software: MIT license
@@ -28,13 +31,8 @@ Misc Luigi related code used by TrustYou
 Features
 --------
 
-* TODO
+TODO
+----
 
-Credits
----------
-
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
-
+* Write proper tests for this code.
+* Document properly

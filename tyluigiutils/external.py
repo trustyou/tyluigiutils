@@ -1,6 +1,7 @@
 import luigi.contrib.hdfs
 import luigi.task
 
+
 class ExternalFileTask(luigi.task.ExternalTask):
 	"""
 	Use this task to model a dependency on a file that is created outside of
