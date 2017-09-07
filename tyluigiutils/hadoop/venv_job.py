@@ -1,10 +1,10 @@
-from luigi.contrib.hadoop import JobTask, HadoopJobRunner
-from luigi import configuration, Parameter
-
-import shutil
-import tempfile
 import os
 import logging
+import tempfile
+import shutil
+
+from luigi.contrib.hadoop import JobTask, HadoopJobRunner
+from luigi import configuration, Parameter
 
 logger = logging.getLogger('luigi-interface')
 
@@ -14,8 +14,8 @@ class VenvJobTask(JobTask):
     Hadoop job which runs in a virtual environment.
 
     It uses the configuration 'venv_path' in the 'hadoop' section of your luigi configuration file.
-    If the venv_path is a zip file it will use it directly  as archive. if it is a directory will compress it and ship
-    it the job.
+    If the venv_path is a zip file it will use it directly  as archive.
+    If it is a directory will compress it and ship it with the hadoop job.
     The venv can be also located  directly on HDFS, use the hdfs:// url prefix to indicate it.
     """
     venv_tmp = None

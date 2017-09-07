@@ -1,3 +1,4 @@
+from __future__ import print_function
 import logging
 import sys
 
@@ -24,7 +25,7 @@ class JsonInputJobTask(luigi.contrib.hadoop.JobTask):
 
     def reader(self, input_stream):
         for line in input_stream:
-            key, value_str = line.decode("utf-8").rstrip(u"\n").split(u"\t", 1)
+            key, value_str = line.decode("utf-8").rstrip("\n").split("\t", 1)
             try:
                 value = json.loads(value_str)
             except ValueError:
@@ -51,9 +52,6 @@ class JsonOutputJobTask(luigi.contrib.hadoop.JobTask):
     validated by a schema.
     """
 
-    # TODO Is the output schema verified if the job has no reducer in
-    # Luigi 1.0.16?
-
     def output_schema(self):
         """
         Override and return a Python object representing a JSON schema.
@@ -70,7 +68,8 @@ class JsonOutputJobTask(luigi.contrib.hadoop.JobTask):
                 except ValidationError as ex:
                     logging.critical("JSON schema violation '%s' at %s", ex.message, "/".join(str(el) for el in ex.path))
                     raise
-            print >>stdout, u"{0}\t{1}".format(key, json.dumps(value)).encode("utf-8")
+            print("{0}\t{1}".format(key, json.dumps(value)).encode("utf-8"), file=stdout)
+
 
 class JsonJobTask(JsonInputJobTask, JsonOutputJobTask):
     """
