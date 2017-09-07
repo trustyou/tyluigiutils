@@ -17,22 +17,18 @@ TrustYou Luigi Utilities
      :target: https://pyup.io/repos/github/mfcabrera/tyluigiutils/
      :alt: Updates
 
+.. image:: https://img.shields.io/pypi/l/tyluigiutils.svg?style=flat
+   :target: https://pypi.python.org/pypi/tyluigiutils
 
-Misc Luigi related code used b internally by  TrustYou that allow you to:
+Misc Luigi related code used internally by  TrustYou that allow you to:
 
 - Run Python Hadoop Streaming from a Python virtual environment.
 - Run Luigi Task to automatically read, validate and generate json.
 
 
-* Free software: MIT license
-* Documentation: https://tyluigiutils.readthedocs.io.
+Getting Started
+----------------
+* TODO
 
 
-Features
---------
-
-TODO
-----
-
-* Write proper tests for this code.
-* Document properly
+Find the documentation: Documentation: https://tyluigiutils.readthedocs.io.
