@@ -42,7 +42,7 @@ setup(
     author="Miguel Cabrera",
     author_email='mfcabrera@gmail.com',
     url='https://github.com/mfcabrera/tyluigiutils',
-    packages=find_packages(include=['tyluigiutils']),
+    packages=find_packages(include=['tyluigiutils', 'tyluigiutils.hadoop']),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
