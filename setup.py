@@ -36,13 +36,13 @@ test_requirements = [
 
 setup(
     name='tyluigiutils',
-    version='0.1.0',
+    version='0.1.2',
     description="Misc Luigi related code used by TrustYou ",
     long_description=readme + '\n\n' + history,
     author="Miguel Cabrera",
     author_email='mfcabrera@gmail.com',
     url='https://github.com/mfcabrera/tyluigiutils',
-    packages=find_packages(include=['tyluigiutils', 'tyluigiutils.hadoop']),
+    packages=find_packages('.'),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
@@ -54,7 +54,6 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
