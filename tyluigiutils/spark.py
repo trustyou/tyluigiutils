@@ -1,28 +1,14 @@
-from os import rename
-
 import random
 import typing  # noqa: F401
-from typing import Any, Callable  # noqa: F401
+from os import rename
 from functools import wraps
-
+from typing import Any, Callable  # noqa: F401
 
 import luigi
 from luigi.contrib.spark import PySparkTask
 from luigi.contrib import hdfs
 
-
-def generate_temporary_path_name(path, num=random.randrange(0, 10000000000)):
-    # type: (str, int) -> str
-    """
-    Returns a temporary path.
-
-    :param path: Original path.
-    :param num: random number
-
-    :return: Temporary path.
-    """
-    tmp_name = "{}-temp-{:010d}".format(path, num)  # type: str
-    return tmp_name
+from .path import generate_temporary_path_name
 
 
 def write_decorator(write_function):

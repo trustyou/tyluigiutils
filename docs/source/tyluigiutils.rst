@@ -29,6 +29,24 @@ tyluigiutils\.spark module
     :show-inheritance:
 
 
+tyluigiutils\.sqoop module
+--------------------------
+
+.. automodule:: tyluigiutils.sqoop
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+tyluigiutils\.url module
+--------------------------
+
+.. automodule:: tyluigiutils.url
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 
