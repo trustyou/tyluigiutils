@@ -46,6 +46,14 @@ tyluigiutils\.url module
     :undoc-members:
     :show-inheritance:
 
+tyluigiutils\.path module
+--------------------------
+
+.. automodule:: tyluigiutils.path
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
