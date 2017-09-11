@@ -1,7 +1,11 @@
 import random
-import typing  # noqa: F401
+import logging
+import os
+import tempfile
+import shutil
 from os import rename
 from functools import wraps
+import typing  # noqa: F401
 from typing import Any, Callable  # noqa: F401
 
 import luigi
@@ -184,3 +188,109 @@ class BaseTYPySparkTask(PySparkTask):
 
     def main(self, sc, *args):  # noqa: D102
         pass
+
+
+def prepend_paths(*paths):
+    """
+    Prepend paths before calling the function. This is useful when you are using a function that require a package and this
+    function is run on one worker, the workers might not had the right PYTHON_PATH (although the packages might be found in the working directory).
+
+    """
+    def _wrapper(f):
+        def wrapped(*args, **kwargs):
+            import sys
+            for p in paths:
+                if p not in sys.path:
+                    sys.path.insert(0, p)
+            return f(*args, **kwargs)
+        return wrapped
+    return _wrapper
+
+
+class SparkVenvJobTask(PySparkTask):
+
+    @property
+    def set_pyspark_python_spark_conf(self):
+        # type: () -> bool
+        """
+        If set to true, the property `spark.yarn.appMasterEnv.PYSPARK_PYTHON` will be also set.
+        This requires that the PYSPARK_PYTHON is also available at the cluster nodes. Normally this is taken care of by the taks
+        but you may want to double check unzipped files path. It is true by default.
+
+        To ensure this work properly the path {venv_name}/bin/python should be available in both the machine running the driver (in clinet mode) and
+        also on the workers and application master (when running it in cluster mode). Generally not necessary if working in client mode.
+
+        Example:
+        my venv is created on the ``myvenv`` directory on the current working directory (i.e. where the application is launched).
+        Then it should be also packaged as myvenv.zip should contain: ::
+
+          $ unzip -l -qq myvenv.zip
+          ...
+          437  2017-08-31 15:13   bin/python
+          ...
+
+        """
+        return False
+
+    @property
+    def set_pyspark_python_in_env(self):
+        # type: () -> bool
+        """
+        If set to true, the property `PYSPARK_PYTHON` will be set as part of the task environment.
+        This is set to `{venv_name}/bin/python`,  where the venv name is taken from :py:meth:`~venv_name` property.
+        It also assume the ``venv`` directory is available on the working directory. True by default.
+        """
+        return True
+
+    @property
+    def venv_path(self):
+        """
+        Returns the path (hdfs:// or local) of the zipped  venv to use
+
+        Implement this returning path. It can be taken from a configuration
+        file or a Luigi Task parameter.
+
+        :returns: a path (string) of the zipped HDFS file
+        """
+        raise NotImplementedError
+
+    @property
+    def venv_name(self):
+
+        venv = os.path.basename(self.venv_path)
+        if not venv.endswith('zip'):
+            raise ValueError("Virtual environment should be a compressed file")
+
+        return os.path.basename(venv)[:-4]
+
+    def _create_venv_archive(self, path):
+        logging.info("Creating virtual environment archive from {}".format(path))
+        self.venv_temp = tempfile.mkdtemp()
+        zip_name = path.split('/')[-1] + '.zip'
+        archive_name = os.path.join(self.venv_temp, zip_name)
+        return shutil.make_archive(archive_name, 'zip', path)
+
+    def program_environment(self):
+        env = self.get_environment()
+        # We need to set now the PYSPARK_PYTHON varible to it uses it
+        if self.set_pyspark_python_in_env:
+            env['PYSPARK_PYTHON'] = './{}/bin/python'.format(self.venv_name)
+        return env
+
+    @property
+    def archives(self):
+
+        logging.info("Archives being archives")
+        archives = super(SparkVenvJobTask, self).archives
+        archives = archives or []
+        archives.append(self.venv_path + "#{}".format(self.venv_name))
+        logging.info(archives)
+        return archives
+
+    @property
+    def conf(self):
+        conf = super(SparkVenvJobTask, self).conf
+        conf = conf or {}
+        if self.set_pyspark_python_spark_conf:
+            conf['spark.yarn.appMasterEnv.PYSPARK_PYTHON'] = './{}/bin/python'.format(self.venv_name)
+        return conf
