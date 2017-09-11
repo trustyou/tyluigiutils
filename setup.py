@@ -36,7 +36,7 @@ test_requirements = [
 
 setup(
     name='tyluigiutils',
-    version='0.1.2',
+    version='0.2.0',
     description="Misc Luigi related code used by TrustYou ",
     long_description=readme + '\n\n' + history,
     author="Miguel Cabrera",
