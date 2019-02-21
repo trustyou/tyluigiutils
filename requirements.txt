@@ -1,4 +1,4 @@
 simplejson
-luigi==2.6.0
+luigi>=2.6.0
 jsonschema
 typing ; python_version < '3.4'
